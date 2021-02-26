@@ -2,13 +2,31 @@ package com.coin.data.json;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.coin.util.DateUtils;
 
-/**
-* Coin
-*/
+@Entity
+@Table(name="coin")
 public class Coin {
+
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int coinId;
+
 	private int id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Statistic statistic;
 	private String name;
 	private String symbol;
 	private String slug;
@@ -17,16 +35,26 @@ public class Coin {
 	private String[] tags;
 	private long maxSupply;
 	private long circulatingSupply;
+	
+	@OneToOne
 	private Platform platform;
 	private int cmcRank;
 	private LocalDateTime lastUpdated;
+
+	@OneToOne
 	private Quote quote;
 
-	public int getId() {
-		return id;
+	public int getCoinId() {
+		return this.coinId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCoinId(int coinId) {
+		this.coinId = coinId;
+	}
+	public Statistic getStatistic() {
+		return statistic;
+	}
+	public void setStatistic(Statistic statistic) {
+		this.statistic = statistic;
 	}
 	public String getName() {
 		return name;
@@ -99,5 +127,11 @@ public class Coin {
 	}
 	public void setQuote(Quote quote) {
 		this.quote = quote;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

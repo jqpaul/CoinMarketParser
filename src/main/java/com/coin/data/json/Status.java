@@ -2,9 +2,23 @@ package com.coin.data.json;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.coin.util.DateUtils;
 
+@Entity
+@Table(name="status")
 public class Status {
+
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private LocalDateTime timeStamp;
 	private int errorCode;
 	private String errorMessage;
@@ -13,6 +27,12 @@ public class Status {
 	private String notice;
 	private int totalCount;
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public LocalDateTime getTimeStamp() {
 		return timeStamp;
 	}

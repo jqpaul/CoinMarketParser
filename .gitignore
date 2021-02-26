@@ -4,3 +4,4 @@ target/
 .classpath
 .factorypath
 .project
+src/main/resources/hibernate.cfg.xml

@@ -1,0 +1,23 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:postgresql://nas-main:5432/coinmarket</property>
+	    <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="connection_pool_size">10</property>
+        <property name="hbm2ddl.auto">create</property>
+        <property name="show_sql">false</property>
+        <mapping class="com.coin.data.json.Statistic"/>
+        <mapping class="com.coin.data.json.Status"/>
+        <mapping class="com.coin.data.json.Coin"/>
+        <mapping class="com.coin.data.json.Platform"/>
+        <mapping class="com.coin.data.json.Quote"/>
+        <mapping class="com.coin.data.json.USD"/>
+    </session-factory>
+</hibernate-configuration>

@@ -3,21 +3,49 @@ package com.coin.data.json;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.coin.util.DateUtils;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
-* Usd
-*/
-public class Usd {
+import com.coin.util.DateUtils;
+import com.google.gson.annotations.SerializedName;
+
+@Entity
+@Table(name="usd")
+public class USD {
+
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private BigDecimal price;
+
+	@SerializedName(value="volume_24h")
 	private BigDecimal volume24h;
+
+	@SerializedName(value="percent_change_1h")
 	private BigDecimal percentChange1h;
+
+	@SerializedName(value="percent_change_24h")
 	private BigDecimal percentChange24h;
+
+	@SerializedName(value="percent_change_7d")
 	private BigDecimal percentChange7d;
+
+	@SerializedName(value="percent_change_30d")
 	private BigDecimal percentChange30d;
-	private BigDecimal marketCap;
+	private BigDecimal marketcap;
 	private LocalDateTime lastUpdated;
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -54,11 +82,11 @@ public class Usd {
 	public void setPercentChange30d(BigDecimal percentChange30d) {
 		this.percentChange30d = percentChange30d;
 	}
-	public BigDecimal getMarketCap() {
-		return marketCap;
+	public BigDecimal getMarketcap() {
+		return marketcap;
 	}
-	public void setMarketCap(BigDecimal marketCap) {
-		this.marketCap = marketCap;
+	public void setMarketcap(BigDecimal marketcap) {
+		this.marketcap = marketcap;
 	}
 	public LocalDateTime getLastUpdated() {
 		return lastUpdated;

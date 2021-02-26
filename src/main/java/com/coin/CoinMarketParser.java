@@ -28,5 +28,8 @@ public class CoinMarketParser {
 		CLIHelper.checkArgumentsValid(args);
 		IParser parser = JsonParser.fromArgs(args);
 		parser.process();
+
+		// Hibernate does not want to quit the session on its own.
+		// System.exit(0);
     }
 }

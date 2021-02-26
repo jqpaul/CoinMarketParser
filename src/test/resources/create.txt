@@ -1,0 +1,71 @@
+CREATE TABLE usd (
+	id 				BIGSERIAL PRIMARY KEY,
+	price 			NUMERIC,
+	volume24h 		NUMERIC,
+	percent_change1h 	NUMERIC,
+	percent_change24h 	NUMERIC,
+	percent_change7d 	NUMERIC,
+	percent_change30d 	NUMERIC,
+	market_cap 			NUMERIC,
+	last_updated 		TIMESTAMP
+);
+
+CREATE TABLE platform (
+	id 				BIGSERIAL PRIMARY KEY,
+	name 			TEXT,
+	slug 			TEXT,
+	token_address 	TEXT
+);
+
+CREATE TABLE quote (
+	id 				BIGSERIAL PRIMARY KEY,
+	usd_id 			BIGINT,
+	CONSTRAINT 		fk_usd
+	FOREIGN KEY(usd_id)
+	REFERENCES usd(id)
+);
+
+CREATE TABLE coin (
+	id 				BIGSERIAL PRIMARY KEY,
+	statistic_id 	BIGINT,
+	name 			TEXT,
+	symbol 			TEXT,
+	slug 			TEXT,
+	num_market_pairs 	BIGINT,
+	date_added 		TIMESTAMP,
+	tags 			TEXT[],
+	max_supply 		BIGINT,
+	circulating_supply 	BIGINT,
+	platform_id 	BIGINT,
+	cmc_rank 		BIGINT,
+	last_updated 	TIMESTAMP,
+	quote_id 		BIGINT,
+	CONTRAINT 		fk_statistic
+	FOREIGN KEY(statistic_id)
+	REFERENCES statistic(id),
+	CONTRAINT 		fk_platform
+	FOREIGN KEY(platform_id)
+	REFERENCES platform(id),
+	CONTRAINT 		fk_quote
+	FOREIGN KEY(quote_id)
+	REFERENCES quote(id)
+);
+
+CREATE TABLE status (
+	id 				BIGSERIAL PRIMARY KEY,
+	time_stamp 		TIMESTAMP,
+	error_code 		BIGINT,
+	error_message 	TEXT,
+	elapsed 		BIGINT,
+	credit_count 	BIGINT,
+	notice 			TEXT,
+	total_count 	BIGINT
+);
+
+CREATE TABLE statistic (
+	id 				BIGSERIAL PRIMARY KEY,
+	status_id 		BIGINT,
+	CONSTRAINT 		fk_status
+	FOREIGN KEY(status_id)
+	REFERENCES status(id)
+);
