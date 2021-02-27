@@ -21,4 +21,7 @@ public class Util {
 		}
 	}
 
+	public static String sanitizeDateFromFile(File file) {
+		return file.getName().split(".")[0];
+	}
 }

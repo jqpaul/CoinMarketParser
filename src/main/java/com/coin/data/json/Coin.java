@@ -1,8 +1,10 @@
 package com.coin.data.json;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.coin.util.DateUtils;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.icu.math.BigDecimal;
 
 @Entity
 @Table(name="coin")
@@ -23,25 +27,49 @@ public class Coin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int coinId;
 
-	private int id;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Statistic statistic;
+
+	@SerializedName(value="id")
+	private int id;
+
+	@SerializedName(value="name")
 	private String name;
+
+	@SerializedName(value="symbol")
 	private String symbol;
+
+	@SerializedName(value="slug")
 	private String slug;
+
+	@SerializedName(value="num_market_pairs")
 	private int numMarketPairs;
-	private LocalDateTime dateAdded;
-	private String[] tags;
-	private long maxSupply;
-	private long circulatingSupply;
+
+	@SerializedName(value="date_added")
+	private Date dateAdded;
+
+	@ElementCollection
+	@SerializedName(value="tags")
+	private List<String> tags;
+
+	@SerializedName(value="max_supply")
+	private double maxSupply;
+
+	@SerializedName(value="circulating_supply")
+	private double circulatingSupply;
 	
 	@OneToOne
+	@SerializedName(value="platform")
 	private Platform platform;
+
+	@SerializedName(value="cmc_rank")
 	private int cmcRank;
-	private LocalDateTime lastUpdated;
+
+	@SerializedName(value="last_updated")
+	private Date lastUpdated;
 
 	@OneToOne
+	@SerializedName(value="quote")
 	private Quote quote;
 
 	public int getCoinId() {
@@ -80,28 +108,28 @@ public class Coin {
 	public void setNumMarketPairs(int numMarketPairs) {
 		this.numMarketPairs = numMarketPairs;
 	}
-	public LocalDateTime getDateAdded() {
+	public Date getDateAdded() {
 		return dateAdded;
 	}
 	public void setDateAdded(String dateAdded) {
-		this.dateAdded = DateUtils.parseJsonDateFormat(dateAdded);
+		this.dateAdded = DateUtils.parseJsonDateFormatToDate(dateAdded);
 	}
-	public String[] getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
-	public void setTags(String[] tags) {
+	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-	public long getMaxSupply() {
+	public double getMaxSupply() {
 		return maxSupply;
 	}
-	public void setMaxSupply(long maxSupply) {
+	public void setMaxSupply(double maxSupply) {
 		this.maxSupply = maxSupply;
 	}
-	public long getCirculatingSupply() {
+	public double getCirculatingSupply() {
 		return circulatingSupply;
 	}
-	public void setCirculatingSupply(long circulatingSupply) {
+	public void setCirculatingSupply(double circulatingSupply) {
 		this.circulatingSupply = circulatingSupply;
 	}
 	public Platform getPlatform() {
@@ -116,11 +144,11 @@ public class Coin {
 	public void setCmcRank(int cmcRank) {
 		this.cmcRank = cmcRank;
 	}
-	public LocalDateTime getLastUpdated() {
+	public Date getLastUpdated() {
 		return lastUpdated;
 	}
 	public void setLastUpdated(String lastUpdated) {
-		this.lastUpdated = DateUtils.parseJsonDateFormat(lastUpdated);
+		this.lastUpdated = DateUtils.parseJsonDateFormatToDate(lastUpdated);
 	}
 	public Quote getQuote() {
 		return quote;

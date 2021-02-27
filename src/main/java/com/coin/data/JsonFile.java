@@ -1,11 +1,11 @@
 package com.coin.data;
 
 import java.io.File;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class JsonFile {
 	private File file;
-	private LocalDateTime timestamp;
+	private Date timestamp;
 
 	public JsonFile(File file) {
 

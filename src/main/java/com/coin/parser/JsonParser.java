@@ -68,7 +68,7 @@ public class JsonParser implements IParser {
 		session.beginTransaction();
 
 		List<Statistic> stats =
-			this.file.parallelStream()
+			this.file.stream()
 				.map((a) -> read(a))
 				.filter(Optional::isPresent)
 				.filter(a -> a.get().getData().size() > 0)
@@ -78,6 +78,10 @@ public class JsonParser implements IParser {
 		// Commiting can't be done in parallel so 
 		// has to be done decoupled from the parallelStream
 		stats.stream()
+		//	 .peek((stat) -> stat.getData().stream()
+		//			 .forEach((coin) -> {
+		//				log.info(coin.getTags().get(0));
+		//			 }))
 			 .forEach((stat) -> commit(stat, session));
 		
 		session.getTransaction().commit();

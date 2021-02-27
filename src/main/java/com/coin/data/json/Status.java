@@ -1,6 +1,6 @@
 package com.coin.data.json;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.coin.util.DateUtils;
+import com.google.gson.annotations.SerializedName;
 
 @Entity
 @Table(name="status")
@@ -19,12 +20,26 @@ public class Status {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private LocalDateTime timeStamp;
+
+	@SerializedName(value="timestamp")
+	private Date timestamp;
+
+	@SerializedName(value="error_code")
 	private int errorCode;
+
+	@SerializedName(value="error_message")
 	private String errorMessage;
+
+	@SerializedName(value="elapsed")
 	private int elapsed;
+
+	@SerializedName(value="credit_count")
 	private int creditCount;
+
+	@SerializedName(value="notice")
 	private String notice;
+
+	@SerializedName(value="total_count")
 	private int totalCount;
 
 	public int getId() {
@@ -33,11 +48,11 @@ public class Status {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public LocalDateTime getTimeStamp() {
-		return timeStamp;
+	public Date getTimestamp() {
+		return timestamp;
 	}
-	public void setTimeStamp(String timeStamp) {
-		this.timeStamp = DateUtils.parseJsonDateFormat(timeStamp);
+	public void setTimestamp(String timestamp) {
+		this.timestamp = DateUtils.parseJsonDateFormatToDate(timestamp);
 	}
 	public int getErrorCode() {
 		return errorCode;
