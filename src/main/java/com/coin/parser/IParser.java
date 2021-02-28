@@ -1,14 +1,16 @@
 package com.coin.parser;
 
-import java.io.File;
-import java.util.Optional;
+import java.util.List;
 
-import com.coin.data.json.Statistic;
 
 /**
-* AbstractParser
+* Used to parse Type T
 */
-public interface IParser {
-	public Optional<Statistic> read(File file);
-	public void process();
+public interface IParser<T> {
+	/**
+	* Returns List of generic types T wrapped in a Optional.
+	* 
+	* @return List of parsed Ts
+	*/
+	public List<T> read();
 }

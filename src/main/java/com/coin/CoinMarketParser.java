@@ -1,8 +1,10 @@
 package com.coin;
 
-import com.coin.parser.JsonParser;
+import com.coin.data.json.Statistic;
 import com.coin.parser.IParser;
+import com.coin.parser.JsonParser;
 import com.coin.util.CLIHelper;
+import com.coin.writer.PostgresWriter;
 
 /*
 * One line to give the program's name and a brief description.
@@ -22,14 +24,22 @@ import com.coin.util.CLIHelper;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+* Provides a generic way to deserialize and serialize date.
+* Currently only used to parse JSON files and serialize them 
+* in a postgres database. 
+*/
 public class CoinMarketParser {
 
+	/**
+	* Recieves a directory as argument, which will be read for containing
+	* files. If no argument is given, the current working path is taken.
+	* @param args
+	*/
     public static void main(String[] args) {
 		CLIHelper.checkArgumentsValid(args);
-		IParser parser = JsonParser.fromArgs(args);
-		parser.process();
-
-		// Hibernate does not want to quit the session on its own.
-		// System.exit(0);
+		IParser<Statistic> parser = JsonParser.fromArgs(args);
+		new PostgresWriter().write(parser.read());
     }
 }
+

@@ -23,7 +23,7 @@ public class ConnectionUtils {
 	}
 
 	public static void closeSession() {
-		if (sessionFactory != null) {
+		if (sessionFactory != null && !sessionFactory.isClosed()) {
 			sessionFactory.close();
 		}
 	}
